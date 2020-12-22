@@ -79,7 +79,7 @@ sim_R_ho_air   = 0.05   # K/W  " with internal air circulation
 #
 #   Time and Temperature parameters
 
-temp_scale          = "f" # c = Celsius | f = Fahrenheit - Unit to display 
+temp_scale          = "c" # c = Celsius | f = Fahrenheit - Unit to display 
 time_scale_slope    = "h" # s = Seconds | m = Minutes | h = Hours - Slope displayed in temp_scale per time_scale_slope
 time_scale_profile  = "m" # s = Seconds | m = Minutes | h = Hours - Enter and view target time in time_scale_profile
 
@@ -87,7 +87,7 @@ time_scale_profile  = "m" # s = Seconds | m = Minutes | h = Hours - Enter and vi
 # when solid state relays fail, they usually fail closed.  this means your
 # kiln receives full power until your house burns down.
 # this should not replace you watching your kiln or use of a kiln-sitter
-emergency_shutoff_temp = 2250
+emergency_shutoff_temp = 1300
 
 # not used yet
 # if measured value is N degrees below set point
