@@ -79,9 +79,5 @@ jobs:
           python-version: '3.7' # Version range or exact version of a Python version to use, using semvers version range syntax.
           architecture: 'x64'
 
-      - name: Install deps
-        run: |
-          pip install --upgrade pip
-          pip install .[docs]
       - name: Build Docs
         run: make docs
