@@ -1,0 +1,6 @@
+coverage:
+  status:
+    # Total project % cov should not go down by more than 5%
+    project:
+      default:
+        threshold: 5%

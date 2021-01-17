@@ -1,20 +1,41 @@
 import logging
 
+log_level = logging.INFO
+log_format = "%(asctime)s %(levelname)s %(name)s: %(message)s"
+_logger = logging.getLogger(__file__)
+
+try:
+    import RPi.GPIO as GPIO
+except RuntimeError:
+    _logger.info("Running mocked GPIO library for development")
+    from unittest import mock
+
+    def _mockfunc(*args, **kwargs):
+        pass
+
+    GPIO = mock.create_autospec("Rpi.GPIO")
+    GPIO.BCM = 1
+    GPIO.IN = 1
+    GPIO.OUT = 1
+    GPIO.PUD_UP = 1
+    GPIO.PUD_DOWN = 1
+    GPIO.input = _mockfunc
+    GPIO.setmode = _mockfunc
+    GPIO.setwarnings = _mockfunc
+    GPIO.setup = _mockfunc
+
 ########################################################################
 #
 #   General options
 
-### Logging
-log_level = logging.INFO
-log_format = '%(asctime)s %(levelname)s %(name)s: %(message)s'
 
 ### Server
 listening_ip = "0.0.0.0"
 listening_port = 8081
 
 ### Cost Estimate
-kwh_rate        = 0.18  # Rate in currency_type to calculate cost to run job
-currency_type   = "$"   # Currency Symbol to show when calculating cost to run job
+kwh_rate = 0.18  # Rate in currency_type to calculate cost to run job
+currency_type = "$"  # Currency Symbol to show when calculating cost to run job
 
 ########################################################################
 #
@@ -27,7 +48,7 @@ currency_type   = "$"   # Currency Symbol to show when calculating cost to run j
 
 ### Outputs
 gpio_heat = 23  # Switches zero-cross solid-state-relay
-heater_invert = 0 # switches the polarity of the heater control
+heater_invert = 0  # switches the polarity of the heater control
 
 ### Thermocouple Adapter selection:
 #   max31855 - bitbang SPI interface
@@ -35,7 +56,7 @@ heater_invert = 0 # switches the polarity of the heater control
 #   max6675 - bitbang SPI interface
 max31855 = 1
 max6675 = 0
-max31855spi = 0 # if you use this one, you MUST reassign the default GPIO pins
+max31855spi = 0  # if you use this one, you MUST reassign the default GPIO pins
 
 ### Thermocouple Connection (using bitbang interfaces)
 gpio_sensor_cs = 27
@@ -65,23 +86,23 @@ pid_kd = 217  # Derivative was 217
 #
 #   Simulation parameters
 
-sim_t_env      = 25.0   # deg C
-sim_c_heat     = 100.0  # J/K  heat capacity of heat element
-sim_c_oven     = 5000.0 # J/K  heat capacity of oven
-sim_p_heat     = 5450.0 # W    heating power of oven
-sim_R_o_nocool = 1.0    # K/W  thermal resistance oven -> environment
-sim_R_o_cool   = 0.05   # K/W  " with cooling
-sim_R_ho_noair = 0.1    # K/W  thermal resistance heat element -> oven
-sim_R_ho_air   = 0.05   # K/W  " with internal air circulation
+sim_t_env = 25.0  # deg C
+sim_c_heat = 100.0  # J/K  heat capacity of heat element
+sim_c_oven = 5000.0  # J/K  heat capacity of oven
+sim_p_heat = 5450.0  # W    heating power of oven
+sim_R_o_nocool = 1.0  # K/W  thermal resistance oven -> environment
+sim_R_o_cool = 0.05  # K/W  " with cooling
+sim_R_ho_noair = 0.1  # K/W  thermal resistance heat element -> oven
+sim_R_ho_air = 0.05  # K/W  " with internal air circulation
 
 
 ########################################################################
 #
 #   Time and Temperature parameters
 
-temp_scale          = "c" # c = Celsius | f = Fahrenheit - Unit to display 
-time_scale_slope    = "h" # s = Seconds | m = Minutes | h = Hours - Slope displayed in temp_scale per time_scale_slope
-time_scale_profile  = "m" # s = Seconds | m = Minutes | h = Hours - Enter and view target time in time_scale_profile
+temp_scale = "c"  # c = Celsius | f = Fahrenheit - Unit to display
+time_scale_slope = "h"  # s = Seconds | m = Minutes | h = Hours - Slope displayed in temp_scale per time_scale_slope
+time_scale_profile = "m"  # s = Seconds | m = Minutes | h = Hours - Enter and view target time in time_scale_profile
 
 # emergency shutoff the kiln if this temp is reached.
 # when solid state relays fail, they usually fail closed.  this means your
@@ -101,4 +122,4 @@ warning_temp_high = 5
 # If you put your thermocouple in ice water and it reads 36F, you can
 # set set this offset to -4 to compensate.  This probably means you have a
 # cheap thermocouple.  Invest in a better thermocouple.
-thermocouple_offset=0
+thermocouple_offset = 0

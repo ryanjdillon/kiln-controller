@@ -1,7 +1,8 @@
 #!/usr/bin/python
 
-import RPi.GPIO as GPIO
 import time
+
+from kilner.config import GPIO
 
 # GPIO to LCD mapping
 LCD_RS = 22  # Pi pin 15

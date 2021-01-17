@@ -1,7 +1,11 @@
-setuptools
-greenlet
+Adafruit-MAX31855
+black
 bottle
 gevent
 gevent-websocket
+greenlet
+pytest
 RPi.GPIO
-Adafruit-MAX31855
+setuptools
+pytest-cov
+pytest-flakes
