@@ -1,6 +1,7 @@
 #!/usr/bin/python
-import RPi.GPIO as GPIO
 import math
+
+from kilner.config import GPIO
 
 
 class MAX31855(object):

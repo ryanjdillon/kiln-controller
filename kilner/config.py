@@ -1,12 +1,33 @@
 import logging
 
+log_level = logging.INFO
+log_format = "%(asctime)s %(levelname)s %(name)s: %(message)s"
+_logger = logging.getLogger(__file__)
+
+try:
+    import RPi.GPIO as GPIO
+except RuntimeError:
+    _logger.info("Running mocked GPIO library for development")
+    from unittest import mock
+
+    def _mockfunc(*args, **kwargs):
+        pass
+
+    GPIO = mock.create_autospec("Rpi.GPIO")
+    GPIO.BCM = 1
+    GPIO.IN = 1
+    GPIO.OUT = 1
+    GPIO.PUD_UP = 1
+    GPIO.PUD_DOWN = 1
+    GPIO.input = _mockfunc
+    GPIO.setmode = _mockfunc
+    GPIO.setwarnings = _mockfunc
+    GPIO.setup = _mockfunc
+
 ########################################################################
 #
 #   General options
 
-### Logging
-log_level = logging.INFO
-log_format = "%(asctime)s %(levelname)s %(name)s: %(message)s"
 
 ### Server
 listening_ip = "0.0.0.0"

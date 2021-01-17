@@ -1,6 +1,7 @@
 #!/usr/bin/python
-import RPi.GPIO as GPIO
 import time
+
+from kilner.config import GPIO
 
 
 class MAX6675(object):

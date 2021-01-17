@@ -1,5 +1,5 @@
 import threading, logging, json, time, datetime
-from oven import Oven
+from kilner.oven import Oven
 
 log = logging.getLogger(__name__)
 

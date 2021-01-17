@@ -5,7 +5,7 @@ import datetime
 import logging
 import json
 
-import config
+from kilner import config
 
 log = logging.getLogger(__name__)
 
@@ -14,12 +14,12 @@ try:
         log.error("choose (only) one converter IC")
         exit()
     if config.max31855:
-        from max31855 import MAX31855, MAX31855Error
+        from kilner.max31855 import MAX31855, MAX31855Error
 
         log.info("import MAX31855")
     if config.max31855spi:
         import Adafruit_GPIO.SPI as SPI
-        from max31855spi import MAX31855SPI, MAX31855SPIError
+        from kilner.max31855spi import MAX31855SPI, MAX31855SPIError
 
         log.info("import MAX31855SPI")
         spi_reserved_gpio = [7, 8, 9, 10, 11]
@@ -29,7 +29,7 @@ try:
                 % (config.gpio_heat, spi_reserved_gpio)
             )
     if config.max6675:
-        from max6675 import MAX6675, MAX6675Error
+        from kilner.max6675 import MAX6675, MAX6675Error
 
         log.info("import MAX6675")
     sensor_available = True
@@ -38,7 +38,7 @@ except ImportError:
     sensor_available = False
 
 try:
-    import RPi.GPIO as GPIO
+    from kilner.config import GPIO
 
     GPIO.setmode(GPIO.BCM)
     GPIO.setwarnings(False)
