@@ -7,3 +7,5 @@ greenlet
 pytest
 RPi.GPIO
 setuptools
+pytest-cov
+pytest-flakes
